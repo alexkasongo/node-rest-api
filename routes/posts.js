@@ -10,20 +10,20 @@ router.get('/specific', (req, res) => {
 });
 
 router.post('/', (req, res) => {
-    // const post = new Post({
-    //     title: req.body.title,
-    //     description: req.body.description
-    // })
+    const post = new Post({
+        title: req.body.title,
+        description: req.body.description
+    })
 
-    console.log(`posts.js - 18`, req.body.title);
+    // console.log(`posts.js - 18`, req.body);
 
-    // post.save()
-    //     .then(data => {
-    //         res.json(data);
-    //     })  
-    //     .catch(err => {
-    //         res.json({message: err});
-    //     })
+    post.save()
+        .then(data => {
+            res.json(data);
+        })  
+        .catch(err => {
+            res.json({message: err});
+        })
 });
 
 module.exports = router;

@@ -29,9 +29,13 @@ app.get('/posts', (req, res) => {
  */
 mongoose.connect(
     process.env.DB_CONNECTION, 
+    // 'mongodb+srv://aleko:qwerty123@cluster0-tlfqs.mongodb.net/rest?retryWrites=true&w=majority',
     {useNewUrlParser: true, useUnifiedTopology: true}, 
-    () => console.log(mongoose.connection.readyState)
-    // () => console.log(`app.js - 27 - connected to DB!`)
+    // () => console.log(mongoose.connection.readyState)
+    () => console.log('connected to DB!')
+    // (err) => {
+    //     console.log(`app.js - 37 - variable`, err);
+    // }
 );
 
 // LISTEN
