@@ -3,18 +3,30 @@ const router = express.Router();
 const Post = require('../models/Post');
 
 /**
- * get posts from DB
+ * GET BACK ALL THE POSTS
  */
 router.get('/', async (req, res) => {
     try {
         const posts = await Post.find();
         res.json(posts);
-    } catch (error) {
-        res.json({message: error});
+    } catch (err) {
+        res.json({ message: err });
     }
 });
 /**
- * make a post
+ * GET BACK SPECIFIC POST
+ * postID is dynamic: anythinga added after post will be retrieved
+ */
+router.get('/:postID', async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.postID);
+        res.json(post);
+    } catch (err) {
+        res.json({ message: err });
+    }
+});
+/**
+ * MAKE A POST
  */
 router.post('/', (req, res) => {
     const post = new Post({
@@ -26,8 +38,19 @@ router.post('/', (req, res) => {
             res.json(data);
         })  
         .catch(err => {
-            res.json({message: err});
+            res.json({ message: err });
         })
+});
+/**
+ * DELETE A POST
+ */
+router.delete('/:postID', async (req, res) => {
+    try {
+        const removedPost = await Post.remove({_id: req.params.postID});
+        res.json(removedPost);
+    } catch (err) {
+        res.json({ message: err });
+    }
 });
 
 module.exports = router;
