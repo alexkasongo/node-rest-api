@@ -2,21 +2,25 @@ const express = require('express');
 const router = express.Router();
 const Post = require('../models/Post');
 
-router.get('/posts', (req, res) => {
-    res.send('We are posts Aleko');
+/**
+ * get posts from DB
+ */
+router.get('/', async (req, res) => {
+    try {
+        const posts = await Post.find();
+        res.json(posts);
+    } catch (error) {
+        res.json({message: error});
+    }
 });
-router.get('/specific', (req, res) => {
-    res.send('We are specific Aleko');
-});
-
+/**
+ * make a post
+ */
 router.post('/', (req, res) => {
     const post = new Post({
         title: req.body.title,
         description: req.body.description
     })
-
-    // console.log(`posts.js - 18`, req.body);
-
     post.save()
         .then(data => {
             res.json(data);
